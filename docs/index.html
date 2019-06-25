@@ -10,16 +10,26 @@
 			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
 		/>
 		<link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" />
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/docisfy-vuepress-theme/dist/style.min.css"
+		/>
 	</head>
 	<body>
 		<div id="app">Loading...</div>
 		<script>
 			window.$docsify = {
 				name: "Front-end cookbook",
-				auto2top: true,
+				repo: "https://github.com/luvsunlight/front-end-cookbook",
+				// auto2top: true,
 				autoHeader: true,
 				loadSidebar: true,
-				subMaxlevel: 3,
+				maxLevel: 2,
+				alias: {
+					"/_posts/.*/_sidebar.md": "/_sidebar.md",
+					"/_posts/.*/_404.md": "/_404.md",
+					"/_posts/README.md": "/README.md"
+				},
 				executeScript: true,
 				mergeNavbar: true,
 				search: {
@@ -28,13 +38,15 @@
 						"/": "搜索"
 					}
 				},
-				notFoundPage: "_404.md"
+				notFoundPage: "_404.md",
+				plugins: [function(hook) {}]
 			}
 		</script>
 		<script src="//unpkg.com/docsify/lib/docsify.js"></script>
+		<script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+		<script src="https://unpkg.com/docisfy-vuepress-theme/dist/index.min.js"></script>
 		<script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
 		<script src="//unpkg.com/docsify-copy-code"></script>
-		<script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
 		<script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
 	</body>
 </html>

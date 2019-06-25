@@ -1,0 +1,23 @@
+{
+	"name": "front-end-cookbook",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"directories": {
+		"doc": "docs"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"doc": "docsify serve docs"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/luvsunlight/front-end-cookbook.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/luvsunlight/front-end-cookbook/issues"
+	},
+	"homepage": "https://github.com/luvsunlight/front-end-cookbook#readme"
+}
