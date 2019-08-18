@@ -10,20 +10,35 @@
     -   [事件](/_posts/html/事件)
     -   [渲染机制](/_posts/html/渲染机制)
 
--   [CSS](css)
+-   CSS
 
-    -   [选择器](/_posts/)
-    -   [盒子布局](/_posts/)
-    -   [弹性布局](/_posts/)
-    -   [less](/_posts/)
+    -   [代码规范](/_posts/css/代码规范)
+    -   [容易忽略但实用的 css 属性](/_posts/css/容易忽略的css)
+    -   [常用对齐方法](/_posts/css/css对齐)
+    -   [常用布局](/_posts/css/css布局)
+    -   [盒子布局](/_posts/css/盒子模型)
+    -   [弹性布局](/_posts/css/弹性布局)
+    -   [格网布局](/_posts/css/格网布局)
+    -   [less](/_posts/css/less)
     -   [媒体查询](/_posts/)
     -   [动画](/_posts/)
     -   [canvas](/_posts/)
     -   [webGL](/_posts/)
 
--   ECMAScript
+-   JS
 
-    -   [ES6](/_posts/)
+    -   [知识体系](/_posts/JS/知识体系)
+    -   [代码规范](/_posts/JS/代码规范)
+    -   [ES6](/_posts/JS/es6)
+    -   [jsx](/_posts/)
+    -   [Typescript](/_posts/)
+    -   [可访问性](/_posts/JS/可访问性)
+    -   [WebAPI](/_posts/JS/WebAPI)
+    -   [WebComponent](/_posts/JS/WebComponent)
+
+-   浏览器
+
+    -   [知识体系](/_posts/浏览器/知识体系)
 
 -   Vue
 
@@ -66,8 +81,6 @@
         -   [热更新](/_posts/)
         -   [全家桶](/_posts/)
     -   [项目](/_posts/)
-
--   TypeScript
 
 -   Nodejs
 
@@ -129,7 +142,7 @@
 
 -   工具调试
 
-    -   [chrome](/_posts/)
+    -   [chrome](/_posts/工具调试/chrome)
     -   [IDE](/_posts/)
 
 -   安全
@@ -158,14 +171,26 @@
 
 -   工程化
 
-    -   [webpack](/_posts/)
-    -   [gulp](/_posts/)
-    -   [cli](/_posts/)
-    -   [npm](/_posts/)
-    -   [mock](/_posts/)
+    -   [工程化简介](/_posts/工程化/工程化.md)
+    -   模块化
+        -   [模块化简介](/_posts/工程化/模块化)
+        -   [webpack](/_posts/)
+        -   [rollup](/_posts/工程化/rollup)
+        -   [parcel](/_posts/)
+    -   构建工具
+        -   [gulp](/_posts/工程化/gulp)
+        -   [grunt](/_posts/)
+    -   包管理平台
+        -   [npm](/_posts/工程化/npm)
+        -   [yarn](/_posts/)
+        -   [bower](/_posts/)
+    -   [持续集成](/_posts/工程化/持续集成)
     -   版本控制
-        -   [svn](/_posts/)
-        -   [git](/_posts/)
+        -   [git](/_posts/工程化/git)
+        -   [svn](/_posts/工程化/)
+    -   [脚手架](/_posts/工程化/脚手架)
+    -   [PWA](/_posts/工程化/PWA)
+    -   [mock](/_posts/工程化/)
 
 -   自动化测试
 
@@ -182,5 +207,5 @@
     -   [遇到问题怎么解决](/_posts/)
 
 -   工作
-
-    -   [个人成长](/_posts/面试/个人成长)
+    -   [开源之路](/_posts/工作/开源之路)
+    -   [个人成长](/_posts/工作/个人成长)
