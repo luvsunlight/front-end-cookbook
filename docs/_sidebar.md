@@ -145,18 +145,19 @@
     -   [chrome](/_posts/工具调试/chrome)
     -   [IDE](/_posts/)
 
+-   网络
+
+    -   [http](/_posts/网络/http)
+
 -   安全
 
+    -   [网络安全](/_posts/安全/网络安全)
     -   [xss](/_posts/)
     -   [csrf](/_posts/)
     -   [csp](/_posts/)
     -   [持久化攻击](/_posts/)
     -   [sql 注入攻击](/_posts/)
     -   [爬虫对抗](/_posts/)
-
--   网络
-
-    -   [https](/_posts/)
 
 -   性能优化
 
@@ -205,7 +206,6 @@
     -   [系统设计](/_posts/软件工程/系统设计)
     -   [开发编码](/_posts/软件工程/开发编码)
     -   [运行维护](/_posts/软件工程/运行维护)
-    -   [经典案例](/_posts/软件工程/经典案例)
 
 -   面试
 
