@@ -117,6 +117,26 @@ git log --reverse (逆序的形式)
 git log --autho=“autho_name”
 ```
 
+### 回滚版本号
+
+#### git reset
+
+> 比如说有版本1，版本2，版本3，那么我们reset到了版本1，版本23都会消失
+
+```
+git reset --hard 版本号
+```
+
+!> 注意，这个时候直接Git push会出错，因为我们本地库指的版本可能比远程库的旧，我们使用git push -f 强制推上去即可
+
+#### git revert
+
+> 比如说有版本1，版本2，版本3，那么我们revert了版本2，就会生成一个没有版本2但是有版本3的版本4
+
+![](https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTgwNDE0MjA1ODE2MTg4)
+
+> 总结，即`reset`为回到某一特定版本，而`revert`为回滚某一次特定操作
+
 ### 分支
 
 #### 列出分支

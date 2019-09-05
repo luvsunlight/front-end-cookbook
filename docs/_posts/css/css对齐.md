@@ -76,3 +76,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 ```
+
+## vertical-align
+
+查看[这篇文章](https://www.cnblogs.com/starof/p/4512284.html)

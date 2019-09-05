@@ -250,3 +250,90 @@ npm 脚本还可以通过 npm*config*前缀，拿到 npm 的配置变量，即 n
 "build:favicon": "node scripts/favicon.js",
 
 ```
+
+## nvm
+
+### nvm是什么
+
+> 在我们的日常开发中经常会遇到这种情况：手上有好几个项目，每个项目的需求不同，进而不同项目必须依赖不同版的 NodeJS 运行环境。如果没有一个合适的工具，这个问题将非常棘手。
+
+nvm 应运而生，nvm 是 Mac 下的 node 管理工具，有点类似管理 Ruby 的 rvm，如果需要管理 Windows 下的 node，官方推荐使用 nvmw 或 nvm-windows。不过，nvm-windows 并不是 nvm 的简单移植，他们也没有任何关系。但下面介绍的所有命令，都可以在 nvm-windows 中运行
+
+### nvm的使用
+
+```
+nvm install 4.2.2 
+```
+
+nvm遵循语义化版本命名规则
+
+```
+nvm use 4.2.2
+```
+
+```
+nvm ls // 列出已安装node
+```
+
+
+## nrm
+
+### nrm是什么
+
+nrm是一个npm源管理器，允许你快速在如下npm源之间切换
+
+```
+npm install -g nrm
+
+```
+
+```
+nrm ls 
+```
+
+```
+nrm use taobao
+```
+
+```
+nrm add  <registry> <url> [home]
+```
+
+```
+nrm del <registry>
+```
+
+## npx
+
+参考[阮一峰 npx使用教程](http://www.ruanyifeng.com/blog/2019/02/npx.html)
+
+### 使用
+
+如果我们在一个项目本地安装的模块，比如`mocha`，我们想要调用它，只能在项目脚本或package.json的scripts里，如果想在命令行下调用，必须像这样
+
+```
+# 项目的根目录下执行
+$ node-modules/.bin/mocha --version
+```
+
+npx就是想解决这个问题，让项目内部的模块用起来更方便，只需要这样调用即可
+
+```
+npx mocha --version
+```
+
+npx的原理很简单，就是运行的时候会到`node_modules/.bin`路径和环境变量`$PATH`里面检查命令是否存在
+
+### 避免全局安装模块
+
+我们可以将一些诸如`vue-cli`这样的全局模块下载到一个临时目录，使用后再删除
+
+### --no-install 参数和--ignore-existing 参数
+
+如果想让 npx 强制使用本地模块，不下载远程模块，可以使用--no-install参数。如果本地不存在该模块，就会报错。
+
+```
+$ npx --no-install http-server
+```
+
+反过来，如果忽略本地的同名模块，强制安装使用远程模块，可以使用--ignore-existing参数。比如，本地已经全局安装了create-react-app，但还是想使用远程模块，就用这个参数。

@@ -20,7 +20,7 @@
     -   [弹性布局](/_posts/css/弹性布局)
     -   [格网布局](/_posts/css/格网布局)
     -   [less](/_posts/css/less)
-    -   [媒体查询](/_posts/)
+    -   [媒体查询](/_posts/css/媒体查询)
     -   [动画](/_posts/)
     -   [canvas](/_posts/)
     -   [webGL](/_posts/)
@@ -161,6 +161,8 @@
 
 -   性能优化
 
+    -   [加载](/_posts/性能/加载)
+
     -   [代码执行更快](/_posts/)
         -   [防抖](/_posts/)
         -   [节流](/_posts/)
@@ -180,10 +182,10 @@
     -   [工程化简介](/_posts/工程化/工程化.md)
     -   模块化
         -   [模块化简介](/_posts/工程化/模块化)
-        -   [webpack](/_posts/)
+        -   [webpack](/_posts/工程化/webpack)
         -   [rollup](/_posts/工程化/rollup)
         -   [parcel](/_posts/)
-    -   构建工具
+    -   [构建工具](/_posts/工程化/构建工具)
         -   [gulp](/_posts/工程化/gulp)
         -   [grunt](/_posts/)
     -   包管理平台
@@ -196,6 +198,7 @@
         -   [svn](/_posts/工程化/)
     -   [脚手架](/_posts/工程化/脚手架)
     -   [PWA](/_posts/工程化/PWA)
+    -   [本地化和国际化](/_posts/工程化/本地化和国际化)
     -   [mock](/_posts/工程化/)
 
 -   [软件工程](/_posts/)

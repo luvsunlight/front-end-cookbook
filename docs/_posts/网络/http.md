@@ -165,10 +165,21 @@ domain一般自动包含子域名
 
 ### js通过document.cookie访问cookie
 
-
-
 ## http访问控制（CORS）
 
-## http的演变
+跨域资源共享是一种机制，它使用额外的http头来告诉浏览器，让运行在一个origin上的web应用被准许访问来自不同源服务器上指定的资源。当一个资源从与该资源本身所在的服务器不同的域，协议或者断就请求一个资源时，资源会发起一个跨域http请求
 
-## http的消息
+出于安全问题，浏览器限制从脚本发起的跨源http请求
+
+### 什么情况下需要cors
+
+* 跨域http请求
+* web字体（@font-face），因此，网站就可以发布truetype字体资源，并只允许已授权网站进行跨站调用
+* webGL贴图
+* 使用drawImage将Images/video画面绘制canvas
+
+## 用法
+
+[Mozilla web 安全引导](https://infosec.mozilla.org/guidelines/web_security)
+
+> 一系列用于帮助运营团队创建安全的Web应用程序的提示
