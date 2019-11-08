@@ -1,8 +1,8 @@
 !> 有一些 css 属性我们很少接触到或者甚至都没听说过，但是善用它们有时可以给我们的开发带来意想不到的帮助和效率
 
-## 文本
+## 1. 文本
 
-### text-transform
+### 1.1 text-transform
 
 > 允许你设置要转换的字体
 >
@@ -14,7 +14,7 @@
 -   capitalize: 转换所有单词让其首字母大写。
 -   full-width: 将所有字形转换成固定宽度的正方形，类似于等宽字体，允许对齐。拉丁字符以及亚洲语言字形（如中文，日文，韩文）
 
-### text-decoration
+### 1.2 text-decoration
 
 > 设置/取消字体上的文本装饰 (你将主要使用此方法在设置链接时取消设置链接上的默认下划线 )
 >
@@ -64,45 +64,83 @@ output: <span class="wave">wave</span>
 -   dashed
 -   wavy（波浪线）
 
-### 文本阴影
+### 1.3 文本阴影
 
 > text-shadow: 4px 4px 5px red;
 
-### white-space
+### 1.4 white-space
 
-> 主要用于设置如何处理元素中的空白
->
-> 可取值
+主要用于设置如何处理元素中的空白和回车
 
-#### normal
+可取值 => 
+
+> normal
 
 连续的空白符会被合并，换行符会被当作空白符来处理。填充 line 盒子时，必要的话会换行
 
-#### nowrap
+>  nowrap
 
 和 normal 一样，连续的空白符会被合并。但文本内的换行无效
 
-#### pre
+> pre
 
 连续的空白符会被保留。在遇到换行符或者`<br>`元素时才会换行。
 
-#### pre-wrap
+> pre-wrap
 
 连续的空白符会被保留。在遇到换行符或者`<br>`元素，或者需要为了填充 line 盒子时才会换行
 
-#### pre-line
+> pre-line
 
 连续的空白符会被合并。在遇到换行符或者`<br>`元素，或者需要为了填充 line 盒子时会换行
 
-#### inherit
+> inherit
 
-## 区块
+一个比较常见的用用是实现`单行文字超出部分省略号的效果`
 
-### border-image
+```
+<div class="hideText">单行文字超出部分用省略号显示</div>
+<style>
+.hideText{
+    width: 200px;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+</style>
+```
+
+### 1.5 text-indent 负值
+
+text-indent的正值使用现在已经越来越少了，但是其负值（和margin一样）有着不可思议的妙用
+
+首先用的比较多的事用来`隐藏内容`，比如网站的logo
+
+```
+<h1 class="logo">CSS世界</h1>
+<style>
+.logo{
+    width:120px;
+    background:url('logo.png');
+    text-indent:-120px;
+}
+</style>
+```
+
+### 1.6 letter-spacing字符间距 和 word-spacing单词间距
+
+当letter-spacing间距为负时，可以实现单词`逆转`的视觉效果
+
+![]()
+
+## 2. 区块
+
+### 2.1 border-image
 
 > [查看 MDN 上的链接](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Styling_boxes/Borders)
 
-### box-shadow
+### 2.2 box-shadow
 
 > 一般的 boxshadow 可能都比较熟悉，但是 boxshadow 可以叠加，使用逗号隔开，形成一种层叠的感觉
 
@@ -124,7 +162,7 @@ output: <span class="wave">wave</span>
 
 > [查看MDN](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Styling_boxes/Advanced_box_effects)
 
-### vertical-align
+### 2.3 vertical-align
 
 :::tip
 CSS 的属性 vertical-align 用来指定行内元素（inline）或表格单元格（table-cell）元素的垂直对齐方式
@@ -137,7 +175,7 @@ CSS 的属性 vertical-align 用来指定行内元素（inline）或表格单元
 * sub
 * text-top
 
-### 修改scrollbar
+### 2.4 修改scrollbar
 
 ```css
 * {
