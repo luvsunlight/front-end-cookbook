@@ -94,7 +94,7 @@ var a = 2
 
 ##### 2.1.2.1 定义
 
-隐式绑定即调用个位置是否有上下文对象,或者说是否被某个对象拥有或者包含。如下面的例子，单看foo是默认绑定，但是我们再调用foo的时候实际上是通过了obj这个上下文，这种情况下，隐式绑定骨子额会把函数调用中的this绑定到这个上下文对象
+隐式绑定即调用个位置是否有上下文对象,或者说是否被某个对象拥有或者包含。如下面的例子，单看foo是默认绑定，但是我们再调用foo的时候实际上是通过了obj这个上下文，这种情况下，隐式绑定规则会把函数调用中的this绑定到这个上下文对象
 
 ```
 function foo(){
@@ -218,6 +218,47 @@ function foo(a) {
 }
 var bar = new foo(2)
 console.log(bar.a) // 2
+```
+
+:::warning
+注意new还有一个前提就是构造函数有没有返回function或者object，如果是的话那么this指向这个对象。但是这样和类模式有冲突，一般情况我们最好不要这么做
+:::
+
+```
+function Constructor(age) {
+    this.age = age
+    let obj = {a: 2}
+    return obj
+}
+let instance = new Constructor("hello")
+instance.age // undefined
+```
+
+> 手写一个new
+
+```
+function newNew(fn, ...args) {
+	var obj = {}
+	Object.setPrototypeOf(obj, fn.prototype)
+	Object.getPrototypeOf(obj).constructor = fn.prototype
+	let result = fn.apply(obj, args)
+	if(result && (typeof result === "object" || typeof result === "function")){
+	   return result
+	}else {
+	   return obj
+	}
+}
+function Foo(name) {
+	this.name = name
+}
+Foo.prototype.myName = function() {
+	console.log(this.name)
+}
+var bar = newNew(Foo, 1)
+var baz = newNew(Foo, 2)
+bar.myName()
+baz.myName()
+console.log(bar.__proto__ === Foo.prototype)
 ```
 
 #### 2.1.5 绑定的例外
@@ -547,4 +588,165 @@ js中并不会自动创建对象的副本
 
 ## 5. 原型
 
+### 5.1 [[prototype]]
+
+js中的对象几乎都有一个特殊的[[prototype]]内置属性（Object.create(null)没有）.在es5之前这个属性是不可访问的，只有在chrome，safari，firefox等主流浏览器中给其赋予了__proto__属性来进行访问。es5之后，我们可以通过Object.getPrototypeOf()方法来获取一个对象的[[prototype]]属性。还可以通过Object.setPrototypeOf(obj, prototypeObj)来修改原型对象
+
+```
+function Foo() {}
+Object.getPrototypeOf(Foo.prototype) === Object.prototype // true
+Foo.prototype.__proto__ === Object.prototype 
+// true 可以看到Foo的原型对象再往上溯就找到了Object.prototype原型对象
+// 当然再往上回溯就是null了
+```
+
+```
+var anotherObj = { a: 2 }
+var obj = Object.create(anotherObj)
+
+// 获取obj的[[prototype]]
+obj.a === anotherObj.a // true
+Object.getPrototypeOf(obj) === anotherObj // true
+anotherObj.isPrototypeOf(obj) // true
+obj.__proto__ === anotherObj // true
+
+obj.prototype // undefined
+obj.constructor === anotherObj.constructor // true
+```
+
+`in`操作符可以得到对象和其原型上的属性，hasOwnProperty则可以判断是否是对象自己的属性，Object.keys也可以遍历对象自己的属性
+
+```
+function Person() {}
+Person.prototype.name = "1"
+obj1 = new Person()
+for (value in obj1) console.log(value) // name
+obj1.hasOwnProperty('name') //false
+Object.keys(obj1) // []
+```
+
+#### 5.1.1 属性设置和屏蔽
+
+我们在使用`obj.foo`来访问属性时，如果foo不是直接出现于原型链上层，[[prototype]]链就会被遍历，具体情况如下
+
+* 如果在[[prototype]]链上方存在名为foo的普通数据访问属性并且未被标记为只读，那么就会在obj实例中添加一个foo属性，并且具有屏蔽效果
+* 如果被标记为只读了，那么无法修改已有属性或者创建屏蔽属性，严格模式会报错，非严格模式会被忽略
+* 如果存在并且它是一个setter，那么该setter会被调用，foo不会产生屏蔽属性
+
+```
+var anotherObj = { a: 2 }
+var obj = Object.create(anotherObj)
+anotherObj.a // 2
+obj.a // 2
+anotherObj.hasOwnProperty("a")
+obj.hasOwnProperty("a")
+
+obj.a++
+
+anotherObj.a // 2
+obj.a // 3
+
+delete obj.a
+
+obj.a //2
+```
+
+如上，有时候我们再用原型的时候会产生隐形的屏蔽，我们一定要小心，当然也可以投通过delete操作符来删除之，使之恢复至默认的原型链中的属性
+
+### 5.2 类
+
+上面我们说过了原型的正统用法
+
+```
+var anotherObj = { a: 2 }
+var obj = Object.create(anotherObj)
+
+// 获取obj的[[prototype]]
+obj.a === anotherObj.a // true
+Object.getPrototypeOf(obj) === anotherObj // true
+anotherObj.isPrototypeOf(obj) // true
+```
+
+在实际的生产中，我们在很多情况下会采用如下这种类似类的模式
+
+```
+function Foo() {}
+var a = new Foo()
+Object.getPrototypeOf(a) === Foo.prototype // true
+Foo.prototype.isPrototypeOf(a) // true
+```
+
+在面向类的语言中，类可以被实例化多次，但是在js中，并没有类似的复制机制，我们只能得到两个对象，它们之间互相关联
+
+在上述的例子中，它只是看起来像一个构造函数罢了。实际上，js中根本没有构造函数，new会劫持任何普通函数并且用构造对象的形式来调用它。
+
+同时还有一个容易让人迷惑的点
+
+```
+Foo.prototype.constructor === Foo // true
+a.constructor === Foo // true 
+```
+
+实际上a是没有constructor属性的，之所以可以达到上述效果，还是因为委托给了原型链的原因。Foo.prototype默认有一个公有并且不可枚举的属性constructor，这种绑定非常脆弱
+
+```
+function Foo() {}
+Foo.prototype = {}
+var a1 = new Foo()
+a1.constructor === Foo
+a1.constructor === Object
+```
+
+我们只需要通过改写Foo.prototype为对象字面量的形式就会让其丢失默认的constructor属性，当然我们也可以手动给其添加一个constructor属性，不过最好还是Object.defineProperty，以增加其`enumerable:false`效果
+
+### 5.3 原型继承
+
+之前我们探讨的是类与实例之间的关系，现在我们来看类和类之间的原型继承的关系
+
+```
+function Foo(name) {
+	this.name = name
+}
+Foo.prototype.myName = function() {
+	console.log(this.name)
+}
+function Bar(name, label) {
+	Foo.call(this, name)
+	this.label = label
+}
+Bar.prototype = Object.create(Foo.prototype)
+```
+
+我们还是推荐上述的方法
+
+* `Bar.prototype = Foo.prototype`这种方式会导致修改Bar.prototype的同时也会修改到Foo的原型对象
+* `Bar.prototype = new Foo()`如果Foo有一些副作用，就会影响到Bar的后代
+* `Object.setPrototypeOf(Bar.prototype, Foo.prototype)`这个方法也很好，不过原理和Object.create完全不一样，这个是直接修改它的原型对象
+
+
+### 5.4 总结
+
+如果要访问对象中并不存在一个属性，[[Get]]操作就会查询对象内部[[prototype]]关联的对象，这个关联实际上定义了一条原型链
+
+所有普通度下昂都有内置的Object.prototype，指向原型链的顶端，toString,valueOf和其他一些通用的功能都存在于这里
+
+使用new调用函数时会把新对象的prototype属性关联到其他对象，带new的函数调用通常被称作为构造函数调用，但其实它和构造函数完全不一样
+
+js中我们看起来好像可以实现和类非常相似的机制，但是js中不会进行复制，对象之间是通过内部的[[prototype]]来进行连接的
+
 ## 6. 行为委托
+
+面向委托的设计和类的设计理念有很大差异，委托行为意味着某些对象在找不到属性或者方法引用的时候会把这个请求委托给另一个对象,面向对象的设计中，我们要尽量实现多态，让父类和子类有相同的方法，但是委托不一样，它要尽量避免具有重复的方法，没有方法的话找父类要
+
+```
+var Foo = {
+	init() {
+		this.me = who
+	},
+	identity() {
+		//...
+	}
+}
+
+var Bar = Object.create(Foo)
+```
