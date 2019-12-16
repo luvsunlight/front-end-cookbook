@@ -36,10 +36,12 @@
 *   JS
 
     -   [知识体系](/_posts/JS/知识体系)
-    -   [代码规范](/_posts/JS/代码规范)
+    -   规范
+
+        -   [代码规范](/_posts/JS/代码规范)
+        -   [设计模式](/_posts/JS/设计模式)
+
     -   [ES6](/_posts/JS/es6)
-    -   [jsx](/_posts/)
-    -   [Typescript](/_posts/)
     -   [可访问性](/_posts/JS/可访问性)
     -   [WebAPI](/_posts/JS/WebAPI)
     -   [WebComponent](/_posts/JS/WebComponent)
@@ -209,16 +211,14 @@
 
 *   性能优化
 
-    -   [加载](/_posts/性能/加载)
-
-    -   [代码执行更快](/_posts/)
-        -   [防抖](/_posts/)
-        -   [节流](/_posts/)
-        -   [vue，react 性能优化](/_posts/)
-    -   [文件加载更快](/_posts/)
-        -   [打包](/_posts/)
-        -   [压缩](/_posts/)
-        -   [缓存](/_posts/)
+    -   [加载和执行](/_posts/性能/加载和执行)
+    -   [数据存取](/_posts/性能/数据存取)
+    -   [DOM 编程](/_posts/性能/DOM编程)
+    -   [算法和流程控制](/_posts/性能/算法和流程控制)
+    -   [快速响应的 UI](/_posts/性能/快速响应的UI)
+    -   [Ajax](/_posts/性能/Ajax)
+    -   [js 实践](/_posts/性能/js实践)
+    -   [性能分析](/_posts/性能/性能分析)
 
 *   自动化测试
 
@@ -258,14 +258,7 @@
     -   [开发编码](/_posts/软件工程/开发编码)
     -   [运行维护](/_posts/软件工程/运行维护)
 
-*   面试
-
-    -   [心仪公司](/_posts/)
-    -   [基础知识](/_posts/)
-    -   [职业生涯](/_posts/)
-    -   [如何看待开源](/_posts/面试/如何看待开源)
-    -   [熟悉一门后端](/_posts/)
-    -   [遇到问题怎么解决](/_posts/)
+*   [面试](https://luvsunlight.github.io/frontend-interview-archive/#/)
 
 *   工作
     -   [开源之路](/_posts/工作/开源之路)
