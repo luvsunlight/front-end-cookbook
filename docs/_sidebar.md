@@ -36,6 +36,16 @@
 *   JS
 
     -   [知识体系](/_posts/JS/知识体系)
+
+        -   [语法](/_posts/JS/语法)
+        -   [类型](/_posts/JS/类型)
+        -   [对象](/_posts/JS/对象)
+        -   [异步](/_posts/JS/异步)
+        -   [this](/_posts/JS/this)
+        -   [原型和类](/_posts/JS/原型和类)
+        -   [作用域和闭包](/_posts/JS/作用域和闭包)
+        -   [行为委托](/_posts/JS/行为委托)
+
     -   规范
 
         -   [代码规范](/_posts/JS/代码规范)
