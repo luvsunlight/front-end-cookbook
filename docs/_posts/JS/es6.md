@@ -192,7 +192,7 @@ let [x, y] = [1, 2] // 相当重要的初始化形式
 
 ## 新的数据结构
 
-### 类
+### 1. 类
 
 ```js
 class Animal {
@@ -225,6 +225,56 @@ let me = new Man("iwillwen", 19)
 console.log(me.isAdult()) //=> true
 me.yell()
 ```
+
+### 2. Set
+
+Set不允许元素重复
+
+```
+const set = new Set([1,2,3,4,4])
+console.log(set) // Set(4){1,2,3,4}
+```
+
+Set的方法有
+
+* size
+* add
+* delete
+* has
+* clear（清除所有返回值）
+* keys（返回所有键名的生成器）
+* values（返回所有值的生成器）
+* entries（返回所有键值对的生成器）
+* forEach（回调函数）
+
+### 3. Map
+
+Map和基本对象基本一致，区别是普通对象的key只能是数字或者字符串，而Map则没有限制
+
+```
+const map = new Map();
+const obj = {p: 'Hello World'};
+
+map.set(obj, 'OK')
+map.get(obj) // "OK"
+
+map.has(obj) // true
+map.delete(obj) // true
+map.has(obj) // false
+```
+
+Map实例的方法有
+
+* size
+* set
+* get
+* has
+* delete
+* clear
+* keys
+* values
+* entries
+* forEach
 
 ## Generator 生成器
 

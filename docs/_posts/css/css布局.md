@@ -1,4 +1,8 @@
 > 我做了一个css布局的展示demo [github链接](https://github.com/luvsunlight/css-layout-demo)
+
+## 正常流
+
+> 正常流就是：依次排列，拍不下了换行
  
 ## 1. display
 
@@ -21,6 +25,46 @@
 * 具有包裹性
 * 可以单独设置宽高
 * 不具有断裂性
+
+> inline-block元素之间存在间隙
+
+原因是因为我们的代码中加入的换行被html当做了空格文本
+
+```
+<div class="outer">
+    <div class="inner"></div>
+    <div class="inner"></div>
+    <div class="inner"></div>
+</div>
+.inner {
+    width:33.33%;
+    height:300px;
+    display:inline-block;
+    outline:solid 1px blue;
+}
+```
+
+我们可以手动去掉换行
+
+```
+
+<div class="outer"><div class="inner"></div><div class="inner"></div><div class="inner"></div></div>
+```
+
+但是这么做，影响了源代码的可读性，一个变通的方案是，改变outer中字号为0
+
+```
+.inner {
+    width:33.33%;
+    height:300px;
+    display:inline-block;
+    outline:solid 1px blue;
+    font-size:30px;
+}
+.outer {
+    font-size:0;
+}
+```
 
 ## 2. float 浮动
 
@@ -95,6 +139,8 @@ clear: both;
 ### 外边距折叠
 
 > 外边距有一个神奇的特性，叫外边距折叠，如果两个相邻元素都在其上设置外边距，并且两个外边距接触，则两个外边距中的较大者保留，较小的一个消失
+
+看起来这个特性很难理解，但是我们可以把margin理解成`一个元素规定了自身周围至少需要的空间`，这样，我们就很容易理解margin需要折叠了
 
 ![](http://ww3.sinaimg.cn/large/006tNc79ly1g4p6ywflhej30h80audg5.jpg)
 

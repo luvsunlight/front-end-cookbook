@@ -1,91 +1,26 @@
-## 1. 避免双重求值
+## 1. 优化页面体积，提升网络加载
 
-js中允许动态作用域的出现，可以通过下面四种方式
+* 静态资源的压缩合并（js压缩，合并，css压缩，合并，雪碧图）
+* 静态资源缓存（资源+md5）
+* 使用CDN
 
-* eval
-* Function
-* setTimeout
-* setInterval
+## 2. 优化页面渲染
 
-但是这么做会导致双重求值，导致效率变慢
+* css放js前面
+* 懒加载
+* 减少DOM查询，对DOM查询做缓存
+* 减少DOM操作，多个操作尽量合并在一起（先加到Fragment上）
+* 防抖和节流
+* ssr
+* 避免使用动态作用域（eval,with,setTimeout,setInterval）
+* 使用位操作(& 1, >> 1)
+* 使用位掩码
+* 使用原生的方法
 
-## 2. 使用Object.Array直接量
+> 尾递归优化
 
-## 3. 避免重复工作
-
-* 延迟加载：即设置函数被调用时才被加载
-* 条件预加载
-
-## 4. 使用速度快的部分
-
-### 4.1 使用位操作
-
-适合将一些基础操作封装到底层
-
-* >>1 (除2)
-* & 1 (判断奇偶)
-
-### 4.2 位掩码
-
-适合用来判断是否通知存在多个布尔选项的情形
-
-```
-const OPTION_A = 1
-const OPTION_B = 2
-const OPTION_C = 4
-const OPTION_D = 8
-const OPTION_E = 16
-
-let options = OPTION_A | OPTION_C | OPTION_D
-
-Boolean(options & OPTION_A) // true 判断A是否在我们选取的OPTIONS里
-```
-
-### 4.3 原生方法
-
-无论我们的js代码如何优化，都永远不会比js引擎提供的原生方法更快，这里是一些常见的数字常量
-
-| 常量 | 值 |
-| --- | --- |
-| Math.E | E |
-| Math.LN10 | log10 |
-| Math.LN2 | log2 |
-| Math.LOG2E | log2 e |
-| Math.LOG10E | log10 e |
-| Math.PI | pi |
-| Math.SQRT1_2 | sqrt（1/2） |
-| Math.SQRT2 | sqrt(2) |
-
-
-| 方法 | 含义 |
-| --- | --- |
-| Math.abs |  |
-| Math.exp |  |
-| Math.log |  |
-| Math.pow |  |
-| Math.sqrt |  |
-| Math.acos |  |
-| Math.asin |  |
-| Math.atan |  |
-| Math.atan2 |  |
-| Math.cos |  |
-| Math.sin |  |
-| Math.tan |  |
-
-## 5. 合并多个js文件
-
-因为http请求本身还需要时间，所以一般我们都会尽量将请求合并
-
-## 6. js预处理
-
-## 7. js压缩
-
-## 8. 使用缓存
-
-## 9. 使用内容分发网络
-
-## 10. 尾递归优化
-
+<details>
+<summary>查看解析</summary>
 es6包含了一个性能领域的特殊要求，这与一个设计函数调用的特定优化形式相关，尾递归优化
 
 > 简单来说，尾调用就是出现在另外一个函数结尾处的函数调用，这个调用结束后就没有其他事情要做了（除了可能要返回结果值）
@@ -118,3 +53,61 @@ function fac(n) {
     return fact(n, 1)
 }
 ```
+
+</details>
+
+
+> 位掩码的使用方式
+
+<details>
+<summary>查看解析</summary>
+```
+const OPTION_A = 1
+const OPTION_B = 2
+const OPTION_C = 4
+const OPTION_D = 8
+const OPTION_E = 16
+
+let options = OPTION_A | OPTION_C | OPTION_D
+
+Boolean(options & OPTION_A) // true 判断A是否在我们选取的OPTIONS里
+```
+
+</details>
+
+> 原生的Math方法
+
+<details>
+<summary>查看解析</summary>
+
+| 常量 | 值 |
+| --- | --- |
+| Math.E | E |
+| Math.LN10 | log10 |
+| Math.LN2 | log2 |
+| Math.LOG2E | log2 e |
+| Math.LOG10E | log10 e |
+| Math.PI | pi |
+| Math.SQRT1_2 | sqrt（1/2） |
+| Math.SQRT2 | sqrt(2) |
+
+
+| 方法 | 含义 |
+| --- | --- |
+| Math.abs |  |
+| Math.exp |  |
+| Math.log |  |
+| Math.pow |  |
+| Math.sqrt |  |
+| Math.acos |  |
+| Math.asin |  |
+| Math.atan |  |
+| Math.atan2 |  |
+| Math.cos |  |
+| Math.sin |  |
+| Math.tan |  |
+
+</details>
+
+
+
