@@ -251,6 +251,10 @@ npm 脚本还可以通过 npm*config*前缀，拿到 npm 的配置变量，即 n
 
 ```
 
+## npm install 过程
+
+[参考这篇文章](https://mp.weixin.qq.com/s/5tmND0G_ZkYVR7Dmug0ugQ)
+
 ## nvm
 
 ### nvm是什么
