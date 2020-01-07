@@ -14,7 +14,7 @@ ECMAScript是js的核心，但如果在Web中使用js，那么BOM（浏览器对
 
 ## 2. window对象
 
-BOM的核心对象是window
+BOM的核心对象是window 
 
 * 在所有的全局作用域中声明的变量，函数都会变成window对象的属性和方法
 * 如果页面中包含框架，则每个框架都拥有自己的window对象，并且保存在iframes集合里。
