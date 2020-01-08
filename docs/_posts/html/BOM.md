@@ -19,3 +19,27 @@ BOM的核心对象是window
 * 在所有的全局作用域中声明的变量，函数都会变成window对象的属性和方法
 * 如果页面中包含框架，则每个框架都拥有自己的window对象，并且保存在iframes集合里。
 * 在BOM中有两个特殊的对象，top对象始终指向最高层的框架，比如有三个iframe页面，我们可以通过`top.frames[0]`来访问其中一个框架。parent对象始终指向当前框架的父框架
+* 在BOM中，我们可以通过alert，confirm，prompt三个方法来弹出不同类型的对话框
+* location对象是最有用的BOM对象之一，要注意的是window.location和document.location引用的是同一个对象
+    * 查询字符串参数。location.search只会返回当前地址中从问号到url末尾的全部内容，我们可以自己写一个解析函数来处理(见下)
+    * 位置操作。我们可以通过`location.assign`,`window.location = `,`location.href=`等方法来改变浏览器的位置
+    * navigator对象，包含了用户的浏览器和系统等硬件信息
+    * history对象，保留着用户的上网记录，也可以用来操作记录
+
+
+```
+function getQueryStringArgs() {
+    let qs = (location.search.length > 0 ? location.search.ubstring(1) : "")
+    let args = {}
+    let items = qs.length ? qs.split('&') : []
+    let item = null, name = null, value = null
+    for(let i=0;i<len;i++) {
+        item = items[i].split("=")
+        name = decodeURIComponent(item[0])
+        value = decodeURIComponent(item[1])
+        if(name.length) {
+            args[name] = value
+        }
+    }
+}
+```
