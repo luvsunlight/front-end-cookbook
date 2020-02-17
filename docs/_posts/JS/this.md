@@ -261,6 +261,51 @@ baz.myName()
 console.log(bar.__proto__ === Foo.prototype)
 ```
 
+分析例子
+
+```
+function Foo() {
+  getName = function () { console.log(1) }
+  return this
+}
+Foo.getName = function () { console.log(2) }
+Foo.prototype.getName = function() { console.log(3) }
+var getName = function () { console.log(4) }
+function getName() {
+  console.log(5)
+}
+
+Foo.getName()
+getName()
+Foo().getName()
+getName()
+new Foo.getName()
+new Foo().getName()
+new new Foo().getName()
+```
+
+重点看后两个
+
+`new Foo().getName()`，我们应该看操作符的顺序,这一句话等同于
+
+```
+var foo = new Foo()
+foo.getName()
+```
+
+那么我们就可以得到其console值为3，因为它自己没有方法，但是在原型链上有方法
+
+我们再看最后一个`new new Foo().getName()`,这一句话等同于
+
+```
+var foo = new Foo()
+var bar = new foo.getName()
+```
+
+这个里面拿foo当做构造函数，bar.__proto__ = foo.getName.prototype
+
+
+
 #### 2.1.5 绑定的例外
 
 刚才我们介绍了四种this绑定的规则，默认，隐式，显式和new。接下来我们介绍几种例外的this绑定规则
