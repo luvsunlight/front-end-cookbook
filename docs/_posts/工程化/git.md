@@ -31,7 +31,7 @@
 
 ![](http://ww1.sinaimg.cn/large/006tNc79ly1g541ilg25fj30hz096tcc.jpg)
 
-## remote，repo，stage，workspace
+### remote，repo，stage，workspace
 
 * remote远程仓库
 * respo 本地仓库

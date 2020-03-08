@@ -39,6 +39,9 @@ DOM要解决的问题
 
 * 充当JS和DOM之间的中间层，可以尽量避免JS频繁操作DOM引发的性能问题
 * 本质上就是一个JS对象，通过diff算法比较新老DOM的差别，来达到最小化局部更新的目的
+* 跨平台
+* 比直接操作DOM拥有更好的性能，除此之外diff算法也节约了效率损耗
+* 适合比较大型的项目，即比较复杂的页面
 
 ## 4. Vue中的虚拟DOM
 
@@ -209,7 +212,8 @@ function removeNode (el) {
 
 ![](https://nlrx-wjc.github.io/Learn-Vue-Source-Code/assets/img/3.7b0442aa.png)
 
-
+[](https://juejin.im/post/5c8e5e4951882545c109ae9c)
+[](https://zhuanlan.zhihu.com/p/27437595)
 
 
 
