@@ -503,4 +503,10 @@ api.getComments(artical.id).then(comments => {
 	// ...
 })
 ```
+
+## Reflect
+
+* Object的`适配器`，本质上是Object的一个类实例，存放的是Object的一些底层但是有用的方法，比如defineProperty，此外以后新标准的方法都会加入到Reflect对象里
+* Reflect的方法和Proxy保持一致
+
  
