@@ -477,11 +477,15 @@ fetchData()
 
 ## Symbol
 
-### 唯一性
+Symbol是ES6新增的一个`原始类型`，它的定义最核心的就是它是独一无二的值
 
-```js
-console.log(Symbol("key") == Symbol("key")) //=> false
-```
+* 不能new，因为它本质是原始类型，不过JS引擎对其也有拆箱和装箱，估计是语言定义的问题，让我们尽量以直接量的形式写它
+* Symbol.toString经过改写，表示为"Symbol('a')",当然以Object.prototype.call(a)还是"[object Symbol]"
+* 它的核心是独一无二，比如Symbol("a") === Symbol("a") // false,我们可能会想引用类型比如`{}==={}`也是false啊，但是要注意Symbol是原始类型，也就是说它是存储在栈里的，这就是语言特性了，模拟的话也有办法（Symbol函数内部作为工厂函数，目的是闭包保存一个uid用来唯一标输出的Symbol直接量，然后挟持symbol直接量的get方法，返回其构造值+uid的混合量）。总结Symbol最好的应用场景就是用来做内部属性，不会导致重名的情况
+* Symbol是用来做防止重名属性的，而不是私有属性
+* Symbol类型的值不可以隐式类型转换，但是可以显示转化
+* Symbol.iterator可以用来包装一个对象成为一个迭代器，使其可以被for...of遍历到
+* Symbol属性不会出现在对象自身以及原型链式的遍历中，不过它也不是私有属性，可以通过方法获取到一个对象全部的Symbol属性值
 
 ## Proxy
 
