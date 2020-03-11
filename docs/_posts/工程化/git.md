@@ -140,18 +140,18 @@ git log --autho=“autho_name”
 
 #### 针对暂存区stage
 
-##### git checkout
+##### git checkout <filename> (清除工作区更新)
 
 这个是针对暂存区的（暂存区就是一个画布，它没有版本号，版本号是仓库才有的），比如说我们工作区的内容有问题，我们想暂时废弃，直接采用暂存区的内容
 
-`git checkout -- <filename>`
+`git checkout <filename>`
 
-##### git reset file 
+##### git reset <filename> (清除暂存区更新)
 
 如果我们已经将修改内容git add至了暂存区，我们需要将暂存区内容废弃，我们就可以先reset，然后再checkout
 
 `git reset <filename>
- git checkout -- <filename>
+ git checkout <filename>
 `
 
 #### 针对本地仓库
@@ -181,12 +181,6 @@ git reset --hard 版本号
 
 ### 分支
 
-#### 列出分支
-
-```
-git branch
-```
-
 #### 创建分支
 
 ```
@@ -197,8 +191,6 @@ git branch <branch_name>
 
 ```
 git checkout <branch_name>
-
-git branch -b <branch_name> 可以创建新分支并且立刻切换到该分支之下
 ```
 
 #### 删除分支
@@ -230,13 +222,14 @@ git remote -v // 查看远程仓库的详细信息
 ```
 git remote add origin <url>
 ```
+
 #### 推送至远程仓库
 
 ```
 git push <remote> <local>:<remote>
 ```
 
-#### git fecth 
+#### git fetch 
 
 将某个远程主机的更新，全部/分治取回本地，注意它是存在repo中，对workspace无影响，如需彻底更新需要合并或使用git pull
 
