@@ -1,23 +1,22 @@
 ## webpack基础概念
 
-参考[webpack 官方中文文档](https://www.webpackjs.com/concepts/)
+webpack本质上是一个`静态模块打包器`，它的原理简单来说就是在处理应用时，会递归地产生一个依赖关系链，然后将这些模块全部打包成一个或者多个bundle，在webpack中万物皆模块，webpack默认能够分析的模块就是JS/JSON，它在遇到无法处理的文件类型(html/css/img)等等，都会将其按照新的模块类型来进行处理，处理的方法就是loader
 
-### 1. entry
+在掌握webpack的用法之前，我们需要好好地了解一下webpack中的几个核心概念，这个阶段的任务是掌握大概的原理
 
-entry用来指定webpack打包的基础
+### entry
+
+entry用来指定webpack使用哪些模块，来作为依赖关系图的入口，进入了该模块之后，再寻找哪些模块是该文件依赖的，然后依次递归下去
 
 > 基础用法
 
 ```js
-# webpack.config.js
-
 entry: “./src/index.js”
 ```
 
 > 多入口文件用法
 
 ```js
-#webpack.config.js
 
 entry: {
 	index: “./src/index.js”,
@@ -25,9 +24,9 @@ entry: {
 }
 ```
 
-### 2. output
+### output
 
-output用来指定文件的输出口
+output告诉webpack应该在什么路径下输出整合的bundle以及如何对这些文件命名
 
 > 基础用法
 
@@ -47,9 +46,9 @@ output: {
 }
 ```
 
-### 3. Loaders
+### loaders
 
-webpack开箱即用只支持js和json，对于其他类型的文件我们需要通过loaders来进行支持
+webpack开箱即用只支持js和json，对于其他类型的文件我们需要通过loaders来进行支持。本质上webpack会将所有类型的文件转化为应用程序的依赖图中可以引用到的模块
 
 > 基础用法
 
@@ -70,7 +69,7 @@ const config = {
 module.exports = config;
 ```
 
-webpack的loaders调用是链式调用，即先使用最下方的loader再逐层往上。下面的例子中即先使用css-loader解析css  ，再使用style-loader，将样式文件插入head里
+webpack的loaders调用是链式调用，即先使用最下方的loader再逐层往上。下面的例子中即先使用css-loader处理css模块，再使用style-loader，将样式文件插入head里
 
 ```
 {
@@ -84,10 +83,11 @@ webpack的loaders调用是链式调用，即先使用最下方的loader再逐层
 
 图片，字体等资源都可以通过`file-loader`或者`url-loader`来加载，`url-loader`的优点是可以base64压缩
 
+### plugins
 
-### 4. plugins
+loaders是让webpack可以以JS/JSON以外的规则去解析不同类型的文件并且将文件以模组的形式添加到依赖关系图中，那么plugins则是应用范围更广，从打包优化压缩到定义变量，插件可以用来处理非常多的功能
 
-Loaders是让webpack去解析webpack不能处理的文件，plugins用于bundle文件的优化，资源管理和环境变量注入
+插件的使用需要先require，然后在配置中加入插件的实例对象，当然这个时候我们还需要进行配置
 
 ```js
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装

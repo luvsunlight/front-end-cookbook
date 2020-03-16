@@ -114,7 +114,7 @@ git mv ori_name tar_name
 git commit -m "desc"
 ```
 
-#### 更正上次提交信息
+#### 更正上次提交信息(仅仅是修正提交信息)
 
 ```
 git commit --amend -m "new desc"
@@ -123,6 +123,13 @@ git commit --amend -m "new desc"
 #### 漏提交
 
 可以选择再提交一次，或者git add。然后再git commit
+
+或者使用`--no-edit`，这样提交信息不会修改，在git上表现为一次提交
+
+```
+git add .
+git commit --amend --no-edit
+```
 
 #### 查看提交历史
 
