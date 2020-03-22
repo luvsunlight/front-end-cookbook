@@ -525,4 +525,13 @@ api.getComments(artical.id).then(comments => {
 * Object的`适配器`，本质上是Object的一个类实例，存放的是Object的一些底层但是有用的方法，比如defineProperty，此外以后新标准的方法都会加入到Reflect对象里
 * Reflect的方法和Proxy保持一致
 
+
+## ES2020
+
+* Promise.allSettled,避免了Promise.all里面由于一个Promise的reject导致整体的reject
+* 可选链 ?.
+* 空值合并运算符。解决0或者""这种假值在逻辑判断时的逻辑错误，比如我们很多时候不能用if(name)这样的操作判断name是否存在因为其有可能为0，控制合并运算符就是做这个的。`name ?? "unnamed"`可以完美甄别上述区别
+* 动态import
+* globalThis，统一Node和浏览器环境下的全局对象
+* BigInt.原来的JS中存在最大安全整数，类似于Infinity，最大安全整数+1还是等于最大安全整数，BigInt的出现就是为了操作这些大数运算的。使用方法可以通过BigInt构造函数或者在直接量后面+n即可。此外要尽量避免使用构造函数的方法，因为构造函数在传参的时候传入的还是整数，在运算时可能会有精度丢失
  

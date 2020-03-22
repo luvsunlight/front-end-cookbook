@@ -61,71 +61,21 @@
         -   [PWA](/_posts/)
 
 -   Vue
-
-    -   [入门](/_posts/)
-    -   [常见问题](/_posts/Vue/常见问题)
-    -   组件化
-        -   [组件通信](/_posts/)
-        -   [privide&inject](/_posts/)
-        -   [仔细钻研一个 UI 库](/_posts/)
-        -   [实现自己的 UI 库](/_posts/)
-    -   全家桶
-        -   vuex
-            -   [数据管理](/_posts/)
-            -   [数据流设计](/_posts/)
-        -   vue-router
-            -   [路由跳转](/_posts/)
-            -   [路由守卫](/_posts/)
-            -   [路由鉴权](/_posts/)
-        -   源码
-            -   [mini 的 Vue 实现](/_posts/)
-        -   性能优化
-            -   [ssr](/_posts/)
-            -   [同构](/_posts/)
-            -   [常见性能优化策略](/_posts/)
-        -   自动测试
-            -   [单测](/_posts/)
-            -   [e2e](/_posts/)
-        -   [项目](/_posts/)
+    
+    -   [知识体系](/_posts/Vue/知识体系)
+    -   [特点](/_posts/Vue/特点)
+    -   [生命周期](/_posts/Vue/生命周期)
+    -   [变化探测](/_posts/Vue/变化探测)
+    -   [虚拟DOM](/_posts/Vue/虚拟DOM)
+    -   [模板编译](/_posts/Vue/模板编译)
+    -   [vuex](/_posts/Vue/vuex)
+    -   [vueRouter](/_posts/Vue/vueRouter)
 
 -   React
 
-    -   [入门](/_posts/)
-    -   [进阶](/_posts/)
-    -   [hooks](/_posts/)
-    -   [全家桶](/_posts/)
-    -   [源码](/_posts/)
-    -   [ssr](/_posts/)
-    -   react-native
-        -   [rn](/_posts/)
-        -   [rn 第三方组件](/_posts/)
-        -   [热更新](/_posts/)
-        -   [全家桶](/_posts/)
-    -   [项目](/_posts/)
-
+    
 -   Nodejs
 
-    -   入门
-        -   [异步](/_posts/)
-        -   [IO](/_posts/)
-        -   [fs](/_posts/)
-    -   nodeweb 开发
-        -   [koa2](/_posts/)
-        -   [router](/_posts/)
-        -   [eggjs](/_posts/)
-    -   鉴权
-        -   [cookie](/_posts/)
-        -   [jwt](/_posts/)
-        -   [oauth](/_posts/)
-    -   部署发布
-        -   [pm2](/_posts/)
-        -   [nginx](/_posts/)
-        -   [docker](/_posts/)
-    -   构建自己的 koa
-        -   [中间件](/_posts/)
-    -   [构建自己的 mvc 框架](/_posts/)
-    -   [数据库](/_posts/)
-    -   [项目](/_posts/)
 
 -   本地化
 
@@ -133,10 +83,6 @@
 
 -   微信公众号
 
-    -   [jssdk](/_posts/)
-    -   [nodejs 对接服务器](/_posts/)
-    -   [公众号客服机器人](/_posts/)
-    -   [项目](/_posts/)
 
 -   算法与数据结构
 
@@ -194,7 +140,6 @@
 -   工具调试
 
     -   [chrome](/_posts/工具调试/chrome)
-    -   [IDE](/_posts/)
 
 -   网络
 
@@ -250,3 +195,4 @@
 -   工作
     -   [开源之路](/_posts/工作/开源之路)
     -   [个人成长](/_posts/工作/个人成长)
+    -   [面试问题整理](/_posts/工作/面试题目整理)
