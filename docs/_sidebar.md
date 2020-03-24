@@ -1,88 +1,72 @@
--   HTML
+-   [HTML](/_posts/html/知识体系)
 
-    -   [知识体系](/_posts/html/知识体系)
+    -   [DTD](/_posts/html/DTD)
+    -   [文档元信息](/_posts/html/文档元信息)
+    -   [链接](/_posts/html/链接)
+    -   [替换型标签](/_posts/html/替换型标签)
+    -   [语义化](/_posts/html/语义化)
+    -   [可访问性](/_posts/html/可访问性)
 
-        -   [DTD](/_posts/html/DTD)
-        -   [文档元信息](/_posts/html/文档元信息)
-        -   [链接](/_posts/html/链接)
-        -   [替换型标签](/_posts/)
-        -   [语义化](/_posts/html/语义化)
-        -   [可访问性](/_posts/html/可访问性)
+-   [CSS](/_posts/css/知识体系)
 
-*   CSS
+    -   [选择器](/_posts/css/选择器)
+    -   [@rule](/_posts/css/at)
+    -   [盒子模型](/_posts/css/盒子模型)
+    -   [正常布局](/_posts/css/css布局)
+    -   [弹性布局](/_posts/css/弹性布局)
+    -   [格网布局](/_posts/css/格网布局)
+    -   [常用布局](/_posts/css/常用布局)
+    -   [常用对齐](/_posts/css/css对齐)
+    -   [代码规范](/_posts/css/代码规范)
+    -   [实用的 css 属性](/_posts/css/容易忽略的css)
+    -   [常见问题](/_posts/css/常见问题)
 
-    -   [知识体系](/_posts/css/知识体系)
-        -   [选择器](/_posts/css/选择器)
-        -   [@rule](/_posts/css/at)
-        -   [盒子模型](/_posts/css/盒子模型)
-        -   [正常布局](/_posts/css/css布局)
-        -   [弹性布局](/_posts/css/弹性布局)
-        -   [格网布局](/_posts/css/格网布局)
-        -   [常用布局](/_posts/css/常用布局)
-        -   [常用对齐](/_posts/css/css对齐)
-    -   规范
+*   [JS](/_posts/JS/知识体系)
 
-        -   [代码规范](/_posts/css/代码规范)
-        -   [实用的 css 属性](/_posts/css/容易忽略的css)
-        -   [常见问题](/_posts/css/常见问题)
-
--   JS
-
-    -   [知识体系](/_posts/JS/知识体系)
-
-        -   [AST](/_posts/JS/AST)
-        -   [语法](/_posts/JS/语法)
-        -   [类型](/_posts/JS/类型)
-        -   [对象](/_posts/JS/对象)
-        -   [异步](/_posts/JS/异步)
-        -   [this](/_posts/JS/this)
-        -   [原型和类](/_posts/JS/原型和类)
-        -   [作用域和闭包](/_posts/JS/作用域和闭包)
-        -   [行为委托](/_posts/JS/行为委托)
-
-    -   规范
-
-        -   [代码规范](/_posts/JS/代码规范)
-        -   [设计模式](/_posts/JS/设计模式)
-
+    -   [AST](/_posts/JS/AST)
+    -   [语法](/_posts/JS/语法)
+    -   [类型](/_posts/JS/类型)
+    -   [对象](/_posts/JS/对象)
+    -   [异步](/_posts/JS/异步)
+    -   [this](/_posts/JS/this)
+    -   [原型和类](/_posts/JS/原型和类)
+    -   [作用域和闭包](/_posts/JS/作用域和闭包)
+    -   [行为委托](/_posts/JS/行为委托)
+    -   [代码规范](/_posts/JS/代码规范)
+    -   [设计模式](/_posts/JS/设计模式)
     -   [ES6](/_posts/JS/es6)
     -   [WebAPI](/_posts/JS/WebAPI)
     -   [WebComponent](/_posts/JS/WebComponent)
 
--   浏览器
+-   [浏览器](/_posts/浏览器/知识体系)
 
-    -   [知识体系](/_posts/浏览器/知识体系)
-        -   [宏观下的浏览器](/_posts/浏览器/宏观下的浏览器)
-        -   [网络模块](/_posts/浏览器/网络模块)
-        -   [渲染模块](/_posts/浏览器/渲染模块)
-            -   [浏览器中的页面循环系统](/_posts/)
-            -   [JS 执行模块](/_posts/)
-            -   [V8](/_posts/)
-        -   [PWA](/_posts/)
+    -   [宏观下的浏览器](/_posts/浏览器/宏观下的浏览器)
+    -   [网络模块](/_posts/浏览器/网络模块)
+    -   [渲染模块](/_posts/浏览器/渲染模块)
+        -   [浏览器中的页面循环系统](/_posts/浏览器/浏览器中的页面循环系统)
+        -   [JS 执行模块](/_posts/浏览器/js执行模块)
+        -   [V8](/_posts/浏览器/V8)
+    -   [PWA](/_posts/浏览器/PWA)
 
--   Vue
-    
-    -   [知识体系](/_posts/Vue/知识体系)
+-   [Vue](/_posts/Vue/知识体系)
+
     -   [特点](/_posts/Vue/特点)
     -   [生命周期](/_posts/Vue/生命周期)
     -   [变化探测](/_posts/Vue/变化探测)
-    -   [虚拟DOM](/_posts/Vue/虚拟DOM)
+    -   [虚拟 DOM](/_posts/Vue/虚拟DOM)
     -   [模板编译](/_posts/Vue/模板编译)
     -   [vuex](/_posts/Vue/vuex)
     -   [vueRouter](/_posts/Vue/vueRouter)
 
--   React
+-   [React](/_posts/React)
 
-    
--   Nodejs
-
+-   [Node.js](/_posts/Node)
 
 -   本地化
 
     -   [知识体系](/_posts/本地化/知识体系)
 
--   微信公众号
-
+-   [微信公众号](/_posts/微信公众号)
 
 -   算法与数据结构
 
@@ -141,17 +125,16 @@
 
     -   [chrome](/_posts/工具调试/chrome)
 
--   网络
+-   [网络](/_posts/网络/知识体系)
 
-    -   [知识体系](/_posts/网络/知识体系)
     -   [tcp](/_posts/网络/TCP)
     -   [http](/_posts/网络/http)
     -   [跨域](/_posts/网络/跨域)
-    -   [网络安全](/_posts/网络/http)
+    -   [网络安全](/_posts/网络/网络安全)
+    -   [axios 源码研读](/_posts/axios源码解析)
 
--   性能优化
+-   [性能优化](/_posts/性能/知识体系)
 
-    -   [知识体系](/_posts/性能/知识体系)
     -   [加载和执行](/_posts/性能/加载和执行)
     -   [数据存取](/_posts/性能/数据存取)
     -   [DOM 编程](/_posts/性能/DOM编程)
@@ -161,23 +144,24 @@
     -   [js 实践](/_posts/性能/js实践)
     -   [性能分析](/_posts/性能/性能分析)
 
--   工程化
+-   [工程化](/_posts/工程化/工程化.md)
 
-    -   [知识体系](/_posts/工程化/工程化.md)
     -   [脚手架](/_posts/工程化/脚手架)
-    -   [less](/_posts/工程化/脚手架)
+    -   [less](/_posts/工程化/less)
     -   [模块化](/_posts/工程化/模块化)
     -   [构建工具](/_posts/工程化/构建工具)
     -   [webpack](/_posts/工程化/webpack)
     -   [rollup](/_posts/工程化/rollup)
     -   [babel](/_posts/工程化/babel)
+    -   [git](/_posts/工程化/git)
     -   [Mock](/_posts/工程化/Mock)
+    -   [npm](/_posts/工程化/npm)
     -   [单元测试](/_posts/工程化/单元测试)
-    -   [持续集成](/_posts/工程化/脚手架)
+    -   [持续集成](/_posts/工程化/持续集成)
     -   [监控](/_posts/工程化/监控)
-    
+    -   [本地化和国际化](/_posts/工程化/本地化和国际化)
 
--   [软件工程](/_posts/)
+-   软件工程
 
     -   [基础理论](/_posts/软件工程/基础理论)
     -   [项目规划](/_posts/软件工程/项目规划)
@@ -186,8 +170,8 @@
     -   [开发编码](/_posts/软件工程/开发编码)
     -   [运行维护](/_posts/软件工程/运行维护)
 
--   [可视化](/_posts/可视化)
-    -   [知识体系](/_posts/可视化/知识体系)
+-   [可视化](/_posts/可视化/知识体系)
+
     -   [WebGL](/_posts/可视化/WebGL)
 
 -   [面试](https://luvsunlight.github.io/frontend-interview-archive/#/)

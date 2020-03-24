@@ -27,7 +27,7 @@
 
 * 父元素设置`display: table-cell; vertical-align:middle;`
 * flex
-* absolute + top 0 + bottom 0 + margin auto
+* absolute + top 0 + bottom 0 + margin auto(这个方法子元素一定要定宽高，或者说定宽，不然就会出现问题)
 * absolute + top 50% + transform:translateY(-50%)
 
 ### 3. 子元素是块级元素，子元素高度已定
