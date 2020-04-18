@@ -261,6 +261,7 @@ map.get(obj) // "OK"
 map.has(obj) // true
 map.delete(obj) // true
 map.has(obj) // false
+
 ```
 
 Map实例的方法有
@@ -310,6 +311,7 @@ function* fibo() {
 let generator = fibo()
 
 for (var i = 0; i < 10; i++) console.log(generator.next().value) //=> 1 1 2 3 5 8 13 21 34 55
+
 ```
 
 > 另外，generator函数可以不适用yield表达式，那么这种情况下，它就变成了单纯的暂缓执行函数
@@ -353,6 +355,7 @@ var g = f();
 g.next() // { value: 0, done: false }
 g.next() // { value: 1, done: false }
 g.next(true) // { value: 0, done: false }
+
 ```
 
 ## async函数
@@ -386,6 +389,7 @@ const asyncReadFile = async function () {
   console.log(f1.toString());
   console.log(f2.toString());
 };
+
 ```
 
 ### 特点
@@ -444,6 +448,7 @@ import defaultMember, { member [ , [...] ] } from "module-name"
 import defaultMember, * as alias from "module-name"
 import defaultMember from "module-name"
 import "module-name"
+
 ```
 
 ### import和require
@@ -484,6 +489,7 @@ fetchData()
 		return renderUIAnimated(data)
 	})
 	.catch(err => console.error(err))
+	
 ```
 
 ## Symbol
@@ -500,6 +506,8 @@ Symbol是ES6新增的一个`原始类型`，它的定义最核心的就是它是
 * 我们可以通过Symbol.for的方法创建相同的Symbol直接量
 
 ## Proxy
+
+[你不知道的 Proxy：ES6 Proxy 可以做哪些有意思的事情？](https://mp.weixin.qq.com/s/USybqGEQHW8ncuzVe1g_Rw)
 
 Proxy 是 ECMAScript 中的一种新概念，它有很多好玩的用途，从基本的作用说就是：Proxy 可以在不入侵目标对象的情况下，对逻辑行为进行拦截和处理。
 
@@ -525,6 +533,79 @@ api.getComments(artical.id).then(comments => {
 * Object的`适配器`，本质上是Object的一个类实例，存放的是Object的一些底层但是有用的方法，比如defineProperty，此外以后新标准的方法都会加入到Reflect对象里
 * Reflect的方法和Proxy保持一致
 
+## 装饰器
+
+[一文读懂 JS 装饰器，这是一个会打扮的装饰器](https://mp.weixin.qq.com/s/g6zxaML5nMwNpbnanj77ng)
+
+首先要注意的是，装饰器目前还没有定案，也就是说按现在提案的标准写的代码以后可能要重构
+
+总的来说，装饰器很像mixin，但比它更优雅
+
+### 类的装饰
+
+```js
+@testable
+class MyTestableClass {
+  // ...
+}
+
+function testable(target) {
+  target.isTestable = true;
+}
+
+MyTestableClass.isTestable // true
+
+```
+
+对于类的装饰器，函数接受类作为参数，可以自定义该类的行为，像上例所示是修改类本身的属性，我们当然也可以修改原型对象的属性
+
+### 方法的装饰
+
+装饰器还可以装饰类的属性，只是这个时候函数接受的参数不一样了
+
+```js
+function readonly(target, name, descriptor){
+  // descriptor对象原来的值如下
+  // {
+  //   value: specifiedFunction,
+  //   enumerable: false,
+  //   configurable: true,
+  //   writable: true
+  // };
+  descriptor.writable = false;
+  return descriptor;
+}
+
+readonly(Person.prototype, 'name', descriptor);
+// 类似于
+Object.defineProperty(Person.prototype, 'name', descriptor);
+```
+
+### 装饰器不能用于函数
+
+是因为存在函数声明提升
+
+```js
+var counter = 0;
+
+var add = function () {
+  counter++;
+};
+
+@add
+function foo() {
+}
+
+```
+
+### 装饰器的应用
+
+它的应用没有特定的限制，可以很广泛，这里列举几种比较常用的
+
+* readonly
+* 防抖和节流
+* 数据格式验证
+* time，打印函数执行耗时
 
 ## ES2020
 
