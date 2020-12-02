@@ -23,6 +23,7 @@
 
 *   [JS](/_posts/JS/知识体系)
 
+    -   [函数式编程](/_posts/JS/函数式编程)
     -   [AST](/_posts/JS/AST)
     -   [语法](/_posts/JS/语法)
     -   [类型](/_posts/JS/类型)
@@ -47,6 +48,8 @@
         -   [JS 执行模块](/_posts/浏览器/js执行模块)
         -   [V8](/_posts/浏览器/V8)
     -   [PWA](/_posts/浏览器/PWA)
+
+-   [设计模式](/_posts/设计模式/)
 
 -   [Vue](/_posts/Vue/知识体系)
 
