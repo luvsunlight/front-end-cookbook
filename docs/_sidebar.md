@@ -24,7 +24,7 @@
 *   [JS](/_posts/JS/知识体系)
 
     -   [函数式编程](/_posts/JS/函数式编程)
-    -   [AST](/_posts/JS/AST)
+    -   [AST](/_gposts/JS/AST)
     -   [语法](/_posts/JS/语法)
     -   [类型](/_posts/JS/类型)
     -   [对象](/_posts/JS/对象)
@@ -38,6 +38,7 @@
     -   [ES6](/_posts/JS/es6)
     -   [WebAPI](/_posts/JS/WebAPI)
     -   [WebComponent](/_posts/JS/WebComponent)
+    -   [TypeScript](/_posts/JS/TS)
 
 -   [浏览器](/_posts/浏览器/知识体系)
 
