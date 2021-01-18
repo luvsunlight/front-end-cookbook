@@ -160,6 +160,7 @@
     -   [git](/_posts/工程化/git)
     -   [Mock](/_posts/工程化/Mock)
     -   [npm](/_posts/工程化/npm)
+    -   [规范化](/_posts/工程化/规范化)
     -   [单元测试](/_posts/工程化/单元测试)
     -   [持续集成](/_posts/工程化/持续集成)
     -   [监控](/_posts/工程化/监控)

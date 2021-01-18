@@ -10,6 +10,26 @@ Rollup 是一个 JavaScript 模块打包器，可以将小块代码编译成大�
 
 !> webpack 在打包成第三方库的时候只能导出 amd/commonjs/umd，而 rollup 能够导出 amd/commonjs/umd/es6。使用 rollup 导出 es6 模块，就可以在使用这个库的项目中构建时使用 tree-shaking 功能
 
+相比Webpack，Rollup打包的结果惊人地简洁，和我们正常手写的没有太大区别。同时它默认开启tree-shaking，删除掉没有被引用的代码
+
+## 特点
+
+> 优点
+
+* 输出结果更加扁平
+* 天然支持ES6，默认有tree-shaking，自动移除未引用代码
+* 打包结果依然完全可读
+
+> 缺点
+
+* 加载非ESM的第三方模块比较复杂
+* 模块最终被打包到一个函数中，无法实现HMR
+* 浏览器环境中，代码拆分功能依赖AMD的库
+
+所以，对于应用程序，Rollup的功能很欠缺
+
+而对于开发类库的时候，Rollup这些优点就显得很有必要
+
 ## 快速上手
 
 ### 安装

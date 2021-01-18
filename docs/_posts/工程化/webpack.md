@@ -85,7 +85,7 @@ webpack的loaders调用是链式调用，即先使用最下方的loader再逐层
 
 ### plugins
 
-loaders是让webpack可以以JS/JSON以外的规则去解析不同类型的文件并且将文件以模组的形式添加到依赖关系图中，那么plugins则是应用范围更广，从打包优化压缩到定义变量，插件可以用来处理非常多的功能
+loaders是让webpack可以以JS/JSON以外的规则去解析不同类型的文件并且将文件以模组的形式添加到依赖关系图中，那么plugins则是应用范围更广，从打包优化压缩到定义变量，插件可以用来处理非常多的功能,它可以用于除了加载资源以外的其他的自动化工作，这里的话，感觉就像是Gulp中的各式各样的插件了
 
 插件的使用需要先require，然后在配置中加入插件的实例对象，当然这个时候我们还需要进行配置
 
@@ -107,7 +107,7 @@ const config = {
 module.exports = config;
 ```
 
-### 5. mode
+### mode
 
 mode可以为`development`，`production`，`none`。选择不同的`mode`webpack会自动开启对应的插件
 
@@ -119,9 +119,375 @@ mode可以为`development`，`production`，`none`。选择不同的`mode`webpac
 
 !> webpack4在mode设置成`production`之后，默认使用了`tenser-webpack-plugin`插件，这个插件可以支持es6语法的uglify
 
+## Webpack基础使用
+
+### 无配置使用
+
+Webpack4之后支持无配置进行打包，它默认入口为`src/index.js`，默认打包出口为`dist/main.js`，我们只需要如下操作
+
+```js
+yarn add webpack webpack-cli
+
+yarn webpack
+```
+
+就可以借助webpack来帮助你完成模块化和打包的任务
+
+但是我们要注意Webpack默认只对JS和JSON类型的文件进行处理，对于其他文件需要不同的Loader 
+
+### CSS文件的打包
+
+我们在webpack配置文件中加入
+
+```js
+const path = require('path')
+
+module.exports = {
+  mode: 'none',
+  entry: './src/main.css',
+  output: {
+    filename: 'bundle.js',
+    path: path.join(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      }
+    ]
+  }
+}
+```
+
+其中css-loader负责将CSS文件转化为JS模块，但是转化为模块之后还是没有添加进HTML中，于是我们还需要style-loader来帮助我们完成这个操作
+
+### 文件资源的打包
+
+比如图片（样式文件也可以）可以通过这样的形式基于Webpack进行打包
+
+```js
+import createHeading from './heading.js'
+import './main.css'
+import icon from './icon.png'
+```
+
+这时当然也需要特定的Loader来帮助我们顺利导入图片文件
+
+```js
+const path = require('path')
+
+module.exports = {
+  mode: 'none',
+  entry: './src/main.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.join(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
+      {
+        test: /.png$/,
+        use: 'file-loader'
+      }
+    ]
+  }
+}
+```
+
+但是这个时候如果我们直接在项目根目录下启动服务器是会有问题的，因为我们会发现打包后的文件图片的地址引用的是根目录下的，原来Webpack默认认为文件的相对路径是相对根目录的，我们需要在Webpack设置中进行配置
+
+```js
+output: {
+    filename: 'bundle.js',
+    path: path.join(__dirname, 'dist'),
+    publicPath: 'dist/'
+  },
+```
+
+### DataURLS
+
+DataURLS是一种文件传输格式，传统的URL是服务器中存在某种资源的文件，前端通过URL去发动HTTP请求去获取这些文件，而DataURL是通过某种特定过的格式，将文件的内容用URL表示，格式如下
+
+> data:[<mediatype>][;base64],<data(文件内容)>
+
+比如，我们在浏览器的导航中输入下列内容，可以直接在浏览器中呈现HTML内容
+
+```
+data:text/html;charset=UTF-8,<h1>html</h1>
+```
+
+对于图片或者字体这类无法直接用文字表示的二进制内容，可以用Base64编码
+
+```
+data:image/png;base64,iVB0...SuQmCG
+```
+
+在Webpack中我们可以通过这个原理，将图片和文字转化为BASE64格式的DATAURLS  ，我们只需要对png格式的文件用url-loader导入即可
+
+另外，我们可以在url-loader中设置limit属性，比如
+
+```js
+{
+    test: /.png$/,
+    use: {
+      loader: 'url-loader',
+      options: {
+        limit: 10 * 1024 // 10 KB
+      }
+    }
+  }
+```
+
+这里表示小于10kb的文件用url-loader处理，大于的则还是用file-loader处理，在配置文件中不需要显式注明file-loader，url-loader会自动做这一点，但是我们必须安装file-loader
+
+!> 值得注意的是，这个方法比较适合一些体积小的文件，因为大的文件打包起来非常复杂，影响效率，同样用数据表示文件可以减少网络请求次数
+
+### ES6
+
+```js
+yarn add -D babel-loader @babel/core @babel/preset-env
+```
+
+配置
+
+```js
+{
+    test: /.js$/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env']
+      }
+    }
+  },
+```
+
+### 加载资源的方式
+
+* 符合ES6语法的导入导出方式
+* 符合CJS规范的require（注意，require的文件还需要调用其default属性才能正常获取值）
+* 符合AMD标准的define函数和require函数
+* CSS中的@import和url也会触发Webpack的加载资源格式
+* HTML中图片的src属性也会触发
+
+## Webpack的开发体验优化
+
+### 自动编译
+
+即修改完源代码之后，Webpack监测到文件变化，自动进行编译工作，当然这个时候还需要在浏览器中手动刷新，实现伪自动化
+
+要实现这一点，只需要在Cli中使用`webpack --watch`即可
+
+### DevServer
+
+即实现自动编译+自动刷新浏览器（该功能可由browser-sync提供，但是在这里选择Webpack集成的功能更好）的功能
+
+```js
+yarn add webpack-dev-server
+
+yarn webpack-dev-server
+```
+
+于此同时，我们可以在webpack的配置文件中加入对DevServer的额外配置
+
+```js
+devServer: {
+    contentBase: './public'
+}
+```
+
+这里的配置是给当前的DevServer**指定额外的静态资源路径**，加入了之后，在Serve阶段，在contentBase目录下的文件也能被serve了
+
+### 代理API 
+
+我们可以通过devServer中的配置来实现代理API
+
+```js
+devServer: {
+    contentBase: './public',
+    proxy: {
+      '/api': {
+        // http://localhost:8080/api/users -> https://api.github.com/api/users
+        target: 'https://api.github.com',
+        // http://localhost:8080/api/users -> https://api.github.com/users
+        pathRewrite: {
+          '^/api': ''
+        },
+        // 不能使用 localhost:8080 作为请求 GitHub 的主机名
+        changeOrigin: true
+      }
+    }
+  }
+```
+
+### HMR
+
+Webpack默认的刷新只支持全量刷新，可能会导致页面状态丢失，那么有没有一种办法是保留状态的同时进行页面的增量刷新，热更新（HMR）就是这样一种技术
+
+Webpack中的HMR默认不支持对JS的热更新，因为JS的变化千差万别，没有办法去判断具体会对页面的哪一个部分产生影响
+
+!>注意CSS等资源可能会默认有热更新的情况，这是因为Webpack中CSS是由Loader处理过的，而这个处理过程就已经加入了热更新
+
+> 我们需要手动处理对JS的热更新
+
+在Webpack中提供了一系列API，来进行热替换
+
+```js
+import createEditor from './editor'
+import background from './better.png'
+import './global.css'
+
+const editor = createEditor()
+document.body.appendChild(editor)
+
+const img = new Image()
+img.src = background
+document.body.appendChild(img)
+// ================================================================
+// HMR 手动处理模块热更新
+// 不用担心这些代码在生产环境冗余的问题，因为通过 webpack 打包后，
+// 这些代码全部会被移除，这些只是开发阶段用到
+if (module.hot) {
+  let hotEditor = editor
+  module.hot.accept('./editor.js', () => {
+    // 当 editor.js 更新，自动执行此函数
+    // 临时记录编辑器内容
+    const value = hotEditor.innerHTML
+    // 移除更新前的元素
+    document.body.removeChild(hotEditor)
+    // 创建新的编辑器
+    // 此时 createEditor 已经是更新过后的函数了
+    hotEditor = createEditor()
+    // 还原编辑器内容
+    hotEditor.innerHTML = value
+    // 追加到页面
+    document.body.appendChild(hotEditor)
+  })
+
+  module.hot.accept('./better.png', () => {
+    // 当 better.png 更新后执行
+    // 重写设置 src 会触发图片元素重新加载，从而局部更新图片
+    img.src = background
+  })
+
+  // style-loader 内部自动处理更新样式，所以不需要手动处理样式模块
+}
+```
+
+### 不同环境的配置文件
+
+简单的做法可以在Webpack的配置目录下通过env来基于不同的配置
+
+```js
+const webpack = require('webpack')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
+module.exports = (env, argv) => {
+  const config = {
+    mode: 'development',
+    entry: './src/main.js',
+    output: {
+      filename: 'js/bundle.js'
+    },
+    devtool: 'cheap-eval-module-source-map',
+    devServer: {
+      hot: true,
+      contentBase: 'public'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            'css-loader'
+          ]
+        },
+        {
+          test: /\.(png|jpe?g|gif)$/,
+          use: {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'img',
+              name: '[name].[ext]'
+            }
+          }
+        }
+      ]
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        title: 'Webpack Tutorial',
+        template: './src/index.html'
+      }),
+      new webpack.HotModuleReplacementPlugin()
+    ]
+  }
+
+  if (env === 'production') {
+    config.mode = 'production'
+    config.devtool = false
+    config.plugins = [
+      ...config.plugins,
+      new CleanWebpackPlugin(),
+      new CopyWebpackPlugin(['public'])
+    ]
+  }
+
+  return config
+}
+```
+
+更复杂的可以根据环境创建多个Webpack配置文件，通过merge来融合配置
+
+```js
+#webpack.dev.js
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const common = require('./webpack.common')
+
+module.exports = merge(common, {
+  mode: 'development',
+  devtool: 'cheap-eval-module-source-map',
+  devServer: {
+    hot: true,
+    contentBase: 'public'
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
+})
+```
+
 ## webpack进阶用法
 
-### 1. 自动清理构建目录
+### DefinePlugin
+
+用于注入全局变量
+
+```js
+plugins: [
+    new webpack.DefinePlugin({
+      // 值要求的是一个代码片段
+      API_BASE_URL: JSON.stringify('https://api.example.com')
+    })
+  ]
+```
+
+### 自动清理构建目录
 
 > 其实这个主要是针对有指纹的文件，没有指纹的文件是会自动替代的
 
@@ -135,13 +501,13 @@ mode可以为`development`，`production`，`none`。选择不同的`mode`webpac
 npm i clean-webpack-plugin -D
 ```
 
-### 2. 自动补齐css前缀
+### 自动补齐css前缀
 
 ```
 npm i autoprefixer -D
 ```
 
-### 3. px转rem
+### px转rem
 
 以前使用的方法是通过媒体查询来实现自适应。相对单位的`rem`比绝对单位的`px`要适应性强的很多
 
@@ -149,7 +515,7 @@ npm i autoprefixer -D
 npm i -D px2rem-loader
 ```
 
-### 4. 资源内联
+### 资源内联
 
 资源内联可以减少http网络请求数
 
@@ -157,11 +523,11 @@ npm i -D px2rem-loader
 npm i -D raw-loader
 ```
 
-### 5. 多页面应用打包
+### 多页面应用打包
 
 多页面（MPA）对SEO更加友好，而且各个页面之间是相对解耦的
 
-#### 5.1 所有页面入口文件的路径以 `src/pagename/index.js` 的形式配置
+#### 所有页面入口文件的路径以 `src/pagename/index.js` 的形式配置
 
 #### 5.2 安装glob
 
@@ -194,7 +560,7 @@ const setMPA = () => {
 setMPA()
 ```
 
-### 6. 提取页面公共资源
+### 提取页面公共资源
 
 基础库分离，可以减少最后打包的体积
 
@@ -204,21 +570,39 @@ setMPA()
 
 webpack4内置，替代`CommonsChunkPlugin`
 
+```js
+mode: 'none',
+  entry: {
+    index: './src/index.js',
+    album: './src/album.js'
+  },
+  output: {
+    filename: '[name].bundle.js'
+  },
+  optimization: {
+    splitChunks: {
+      // 自动提取所有公共模块到单独 bundle
+      chunks: 'all'
+    }
+  },
+```
+
 chunks参数说明
     * asnyc 异步引入的库进行分离（默认）
     * inistial 同步引入的库进行分离
     * all 所有引入的库进行分离（推荐）
 
- 
-### 7. tree shaking
+### tree shaking
 
 #### 使用
 
 一个模块可能有多个方法，只要其中每个方法用到了，那么整个文件都会被搭载bundle里，tree shaking就是只把用到的方法打入bundle，没用到的方法会在uglify阶段被擦除
 
+> 要清除的就是 Dead Code，不止是引用的文件，也是各种代码片段
+
 * webpack默认之处，在`.babelrc`里设置`modules: false`即可
 * `production mode`下默认开启
-* 必须是es6的语法
+* 必须是ES6的语法
 
 #### 原理
 
@@ -228,7 +612,65 @@ chunks参数说明
 * import的模块名只能是字符串变量
 * import binding 是immutable的
 
-### 8. scope hoisting
+如果要在Webpack中模拟tree-shaking的操作，可以这样设置
+
+```js
+optimization: {
+    // 使用该选项之后，Webpack打包的文件里该模块就只导出被使用的成员
+    usedExports: true,
+    // 压缩输出结果，清除掉未被使用的成员
+    // minimize: true
+  }
+```
+
+其中usedExports也可以理解为标记处需要被清除掉的部分，然后minimize就是负责摇掉这些部分的操作
+
+#### tree-shaking和babel
+
+理论上babel和tree-shaking在一起会失效，因为tree-shaking的基础就是基于ES6的模块机制。当然现在babel-loader已经默认关闭了module的转化机制
+
+```js
+module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              // 如果 Babel 加载模块时已经转换了 ESM，则会导致 Tree Shaking 失效
+              // ['@babel/preset-env', { modules: 'commonjs' }]
+              // ['@babel/preset-env', { modules: false }]
+              // 也可以使用默认配置，也就是 auto，这样 babel-loader 会自动关闭 ESM 转换
+              ['@babel/preset-env', { modules: 'auto' }]
+            ]
+          }
+        }
+      }
+    ]
+  }
+```
+
+#### SideEffects
+
+tree-shaking的过程可以帮助我们顾虑掉模块里未被引用的方法，sideEffects则可以更进一步提升tree-shaking的效率
+
+SideEffects的意思是标注某个模块是否具有副作用，如果没有副作用，那么Webpack将移除其全部的未被引用到的导出
+
+我们首先在Webpack的配置中加入SideEffects的判断，表示Webpack在打包时，会考虑到SideEffect，那么它以什么为参考呢，那就是在当前项目的`package.json`里的sideEffects，如果该值为false，那么Webpack就会认为当前项目中用到的模块都没有副作用，也就不会全量打包了
+
+常见的副作用比如某个模块里是各种原型的拓展，它当然没有导出，但是这个模块却不能够被shake掉。除此之外，CSS文件也是有副作用的文件
+
+解决办法是手动指定有副作用的模块，那么其他的模块就会被shake下没有被引用的部分
+ 
+```js
+"sideEffects": [
+    "./src/extend.js",
+    "*.css"
+  ]
+```
+  
+### scope hoisting
 
 随着引入模块的增加，大量函数闭包包裹代码，导致体积增大。同时，运行代码时创建的函数作用域变多，内存开销变大
 
@@ -236,11 +678,11 @@ chunks参数说明
 
 将所有模块的代码按照引用顺序放在一个函数作用域里，然后适当的重命名一些变量以防止变量名冲突。通过scope hoisting 可以减少函数声明代码和内存开销
 
-### 9. 代码分割和动态import
+### 代码分割和动态import
 
 #### 代码分割的意义
 
-对应大的web应用来讲，将所有的代码都放在一个文件中是显然不够有效的，特别是你的代码是在一些特殊情况下才会被用到，webpack有一个功能就是将你的代码库分割成chunks，当代码运行到需要的时候再加载
+对应大的web应用来讲，将所有的代码都放在一个文件中是显然不够有效的，特别是你的代码是**在一些特殊情况下才会被用到**，webpack有一个功能就是将你的代码库分割成chunks，当代码运行到需要的时候再加载
 
 #### 适用的场景
 
@@ -267,20 +709,34 @@ npm i -D @babel/plugin-syntax-dynamic-import
 ...
 ```
 
-### 10. webpack+eslint
+```js
+if (hash === '#posts') {
+    // mainElement.appendChild(posts())
+    import(/* webpackChunkName: 'components' */'./posts/posts').then(({ default: posts }) => {
+      mainElement.appendChild(posts())
+    })
+  } else if (hash === '#album') {
+    // mainElement.appendChild(album())
+    import(/* webpackChunkName: 'components' */'./album/album').then(({ default: album }) => {
+      mainElement.appendChild(album())
+    })
+  }
+```
+
+### webpack+eslint
 
 * 不重复造轮子，基于eslint:recommend配置并改进
 * 能够帮助发现代码错误的规则，全部开启
 * 能够帮助保持团队的代码风格统一，而不是限制开发体验 
 
-### 11. webpack打包基础库和组件
+### webpack打包基础库和组件
 
 * 打包压缩版和非压缩版
 * 支持AMD/ejs/cjs的版本
 
 其实打包库更推荐rollup
 
-### 12. webpack实现ssr打包
+### webpack实现ssr打包
 
 客户端渲染
 
@@ -302,7 +758,7 @@ ssr服务端渲染
 
 服务端渲染的核心是减少请求，渲染的缓解都在服务端完成，客户端只需要请求一次，服务端直接返回html文件
 
-### 13. 优化构建时命令行的显示日志
+### 优化构建时命令行的显示日志
 
 #### 方法1 原生方法：设置stats
 
@@ -313,13 +769,13 @@ ssr服务端渲染
 | normal | 标准输出 |
 | verbose | 全部输出 |
 
-#### 方法2 插件 friendly-errors-webpack-plugin
+#### 插件 friendly-errors-webpack-plugin
 
 ```
 npm i -D friendly-errors-webpack-plugin
 ```
 
-### 14. 构建异常和中断处理
+### 构建异常和中断处理
 
 > 怎么判断构建成功
 
@@ -341,7 +797,7 @@ plugins:[
 ]
 ```
 
-### 15. 文件指纹
+### 文件指纹
 
 * hash 和整个项目的构建相关，只要项目文件有修改，整个项目的构建的hash都会更改
 * chunkhash 和webpack打包的chunk有关，不同的entry会生成不同的chunkhash值
@@ -570,46 +1026,56 @@ cons webpackConfig = smp.wrap({
 
 动态polyfill => 识别UA，下发不同的polyfill
 
-## 通过源码掌握webpack打包原理
+## Webpack原理
 
-### webpack启动过程
-
-cli实际上是调用了node_nodules/.bin里面去找对应的bin文件，如果存在则调用，不存在则抛出错误
-
-### webpack-cli源码阅读
-
-webpack-cli做的事
-
-* 引入yargs，对命令行进行定制
-* 分析命令行参数，对各个参数进行转换，组成编译配置项
-* 引入webpack，根据配置项进行编译和构建 
-
-### tapable插件架构和hooks设计
-
-### tapable是如何和webpack进行关联起来了
-
-### webpack流程
-
-#### 准备阶段
-
-#### 模块构建和chunk生成
-
-#### 文件生成
-
-### 动手编写一个建议的webpack
+> 本质上，Webpack是一个现代的JS应用程序的静态模块打包器。当Webpack处理应用程序时，它会递归地构建一个依赖关系图，其中包含应用程序需要的每一个模块，然后将所有这些模块都打包成一个或者多个bundle
 
 ## 编写loader和插件
 
-### loader的链式调用和执行顺序
+### 编写一个Loader
 
-### 使用loader-runner高效进行loader的调试
+一个Loader就是一个转化器，它接受数据的原始格式，输出被处理后的格式，需要注意的是，在Loader调用链中，最终能够被Webpack认可的一定是JS/JSON格式的数据
 
-### 更复杂的loader的开发场
+```js
+const marked = require('marked')
 
-### 实战开发一个自动合成雪碧图的loader
+module.exports = source => {
+  // console.log(source)
+  // return 'console.log("hello ~")'
+  const html = marked(source)
+  // return html
+  // return `module.exports = "${html}"`
+  // return `export default ${JSON.stringify(html)}`
 
-### 插件基本结构介绍
+  // 返回 html 字符串交给下一个 loader 处理
+  return html
+}
+```
 
-### 更复杂的插件开发场景
+### 编写一个插件
 
-### 实战开发一个压缩构建资源为zip包的插件
+Webpack中的插件是通过在生命周期的钩子中挂在函数来实现扩展的
+
+```js
+class MyPlugin {
+  apply (compiler) {
+    console.log('MyPlugin 启动')
+
+    compiler.hooks.emit.tap('MyPlugin', compilation => {
+      // compilation => 可以理解为此次打包的上下文
+      for (const name in compilation.assets) {
+        // console.log(name)
+        // console.log(compilation.assets[name].source())
+        if (name.endsWith('.js')) {
+          const contents = compilation.assets[name].source()
+          const withoutComments = contents.replace(/\/\*\*+\*\//g, '')
+          compilation.assets[name] = {
+            source: () => withoutComments,
+            size: () => withoutComments.length
+          }
+        }
+      }
+    })
+  }
+}
+```

@@ -274,3 +274,56 @@ class Person {
 var p = Person.create('hello')
 ```
 
+#### 5.1.6 其他内置类型
+
+* keyof，获取一个类型全部的属性名称
+* Partical，对接口做一个封装，让接口里的属性值都变成可选的
+* Required，同上，效果是变成必选
+* Pick，从一个已知类型的属性里挑选，形成一个新的类型
+* Record，快速形成一个指定类型的字典
+* typeof，与JS里的typeof没有关系
+
+```js
+type Required<T> = {
+    [P in keyof T]-?: T[P];
+};
+const ls: Required<Person> = {
+    id: "2"
+}
+
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};
+const ls: Partial<Person> = {
+    id: "2"
+}
+```
+
+#### 5.1.7 interface与Type的区别
+
+大部分情况下interface和type可以互换，但是interface的语义性更好一些
+
+从功能上讲，interface可以做声明合并,而Type不行，比如有一些三方的库不满足要求，这个时候就需要我们通过类型补充声明的形式来进行补充
+
+```js
+interface Person {
+    name: string
+} 
+
+interface Person {
+    pee: boolean
+}
+
+const p: Person = {
+    name: "1",
+    pee: true
+}
+```
+
+### 5.2 NPM上大量的JS模块没有办法直接在TS项目中使用
+
+如果NPM模块本身就是用TS写的话，可以在TS配置中直接生成对应的类型文件，但是现存的很多库开发的时候还没有TS，自然也没有对应的类型声明文件，对应的解决方法为
+
+* 项目中添加`.d.ts`，通过`declare module`的方式去声明
+    * 这个文件可以不用手写，可以通过工具生成，然后自己手动填补即可
+* 尝试安装`@types/xxx`，微软维护了很多这种类型的项目，当然大部分都是民间开源工作者们贡献的
