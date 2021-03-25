@@ -26,7 +26,7 @@ esprima是一个js-parser解析器，它可以将js源码转化为抽象的语�
 
 [jscodeshift](https://github.com/facebook/jscodeshift)是一种` codemod toolkit`工具，它是recast的wrapper，recast是esprima的wrapper。它的作用就是解析js，将js解析成AST，然后提供一些遍历的操作接口，我们可以做一些比如垫片或者babel，又或者是代码自动升级工具。要使用jscodeshift，就必须要使用它的配套网站[AST Explorer](https://astexplorer.net/)，虽然看起来很简单，但是功能一点都不漏下。
 
-## 基本操作
+## 2.基本操作
 
 我们设定要操作的对象代码段为
 

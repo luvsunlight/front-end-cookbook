@@ -596,6 +596,16 @@ chunks参数说明
 
 #### 使用
 
+Tree Shaking 是一种通过清除多余代码方式来优化项目打包体积的技术，专业术语叫DCE（Dead code elimination）。这个术语和概念实际上是由 ES2015 模块打包工具 rollup 实现，后来 webpack2 也实现了这个功能。
+
+Tree Shaking 的消除原理就是依赖于 ES6 的模块特性。
+•  只能作为模块顶层的语句出现
+• import 的模块名只能是字符串常量
+• import binding 是 immutable 的
+• 静态加载模块，效率比CommonJS 模块的加载方式高
+• 如果是require，在运行时确定模块，那么将无法去分析模块是否可用，只有在编译时分析，才不会影响运行时的状态
+ES6模块依赖关系是确定的，和运行时的状态无关，可以进行可靠的静态分析，这就是tree-shaking的基础。
+
 一个模块可能有多个方法，只要其中每个方法用到了，那么整个文件都会被搭载bundle里，tree shaking就是只把用到的方法打入bundle，没用到的方法会在uglify阶段被擦除
 
 > 要清除的就是 Dead Code，不止是引用的文件，也是各种代码片段
